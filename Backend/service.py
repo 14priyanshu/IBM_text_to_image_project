@@ -2,21 +2,21 @@ import os, io, base64
 from huggingface_hub import InferenceClient, login
 from dotenv import load_dotenv
 
-# Load environment variables
-load_dotenv(override=True)  # Force reload environment variables
-token = os.getenv("HF_TOKEN")  # Changed to match the variable name in .env file
+
+load_dotenv(override=True)  
+token = os.getenv("HF_TOKEN")  
 if not token:
     print("Warning: HF_TOKEN not found in environment variables")
     print("Current working directory:", os.getcwd())
     print("Looking for .env file in:", os.path.abspath('.'))
     raise ValueError("Please set HF_TOKEN in your .env file")
 
-# Login to Hugging Face
+
 login(token=token)
 
-print("Token loaded successfully")  # Debug message
+print("Token loaded successfully")  
 
-# Initialize the Hugging Face Inference Client
+
 client = InferenceClient(token=token)
 
 def generate(prompt, num_images, guidance_scale, height, width):
@@ -32,7 +32,7 @@ def generate(prompt, num_images, guidance_scale, height, width):
             guidance_scale=guidance_scale
         )
         
-        # Convert the image to base64
+        
         buf = io.BytesIO()
         image.save(buf, format="PNG")
         b64 = base64.b64encode(buf.getvalue()).decode()

@@ -5,7 +5,7 @@ import time
 st.set_page_config(page_title="AI Image Generator")
 st.title("🖼️ AI Image Generator")
 
-# Add a status container
+
 status_container = st.empty()
 
 prompt = st.text_input("Enter a prompt")
@@ -16,7 +16,7 @@ with options:
     width = st.select_slider("Width", options=[256, 512, 768], value=512)
     height = st.select_slider("Height", options=[256, 512, 768], value=512)
 
-# Check backend status
+
 try:
     response = requests.get("http://localhost:8000")
     # if response.status_code == 200:
@@ -30,16 +30,16 @@ if st.button("Generate"):
         st.stop()
 
     try:
-        # Show progress message
+        
         progress_text = st.empty()
         progress_bar = st.progress(0)
         
-        # Start generation
+        
         progress_text.text("🎨 Starting image generation...")
         progress_bar.progress(10)
         
         with st.spinner():
-            # Make the API request with a shorter timeout
+          
             response = requests.post(
                 "http://localhost:8000/generate",
                 json={
@@ -49,7 +49,7 @@ if st.button("Generate"):
                     "width": width,
                     "height": height
                 },
-                timeout=90  # Reduced timeout to 90 seconds
+                timeout=90 
             )
             
             progress_bar.progress(50)
@@ -60,11 +60,11 @@ if st.button("Generate"):
                 progress_bar.progress(90)
                 progress_text.text("✨ Almost done...")
                 
-                # Display images
+               
                 for img in res["images"]:
                     st.image(img)
                 
-                # Clear progress indicators and show success
+              
                 progress_bar.progress(100)
                 progress_text.empty()
                 st.success("✨ Images generated successfully!")
