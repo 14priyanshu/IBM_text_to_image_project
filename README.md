@@ -16,6 +16,7 @@ This project is a web application that generates images from text descriptions u
 ## Tech Stack
 
 - **Backend:**
+
   - FastAPI (Python web framework)
   - Hugging Face Hub (AI model integration)
   - Python-dotenv (environment management)
@@ -35,23 +36,27 @@ This project is a web application that generates images from text descriptions u
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/14priyanshu/IBM_text_to_image_project.git
 cd IBM_text_to_image_project
 ```
 
 2. Set up the backend:
+
 ```bash
 cd Backend
 pip install -r requirements.txt
 ```
 
 3. Create a `.env` file in the Backend directory:
+
 ```env
 HF_TOKEN=your_huggingface_token_here
 ```
 
 4. Set up the frontend:
+
 ```bash
 cd ../frontend
 pip install -r requirements.txt
@@ -60,12 +65,14 @@ pip install -r requirements.txt
 ## Running the Application
 
 1. Start the backend server:
+
 ```bash
 cd Backend
 uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 2. Start the frontend (in a new terminal):
+
 ```bash
 cd frontend
 streamlit run clients.py
