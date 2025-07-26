@@ -15,6 +15,7 @@ ENV/
 
 # Streamlit
 .streamlit/
+.streamlit/secrets.toml
 
 # Misc
 *.log
