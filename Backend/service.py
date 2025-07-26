@@ -3,13 +3,14 @@ from huggingface_hub import InferenceClient, login
 from dotenv import load_dotenv
 
 
-load_dotenv(override=True)  
-token = os.getenv("HF_TOKEN")  
+
+load_dotenv(override=True)
+
+
+token = os.getenv("HF_TOKEN") or os.environ.get("HUGGINGFACEHUB_API_TOKEN")
+
 if not token:
-    print("Warning: HF_TOKEN not found in environment variables")
-    print("Current working directory:", os.getcwd())
-    print("Looking for .env file in:", os.path.abspath('.'))
-    raise ValueError("Please set HF_TOKEN in your .env file")
+    raise ValueError("No HuggingFace token found. Please set HF_TOKEN in environment variables or .env file")
 
 
 login(token=token)
@@ -22,7 +23,7 @@ client = InferenceClient(token=token)
 def generate(prompt, num_images, guidance_scale, height, width):
     results = []
     for _ in range(num_images):
-        # Generate image using the inference client
+       
         image = client.text_to_image(
             prompt,
             negative_prompt="",

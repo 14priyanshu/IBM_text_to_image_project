@@ -3,19 +3,20 @@ import requests
 import time
 import os
 
-# Set page config
+
 st.set_page_config(page_title="AI Image Generator")
 st.title("🖼️ AI Image Generator")
 
-# Add a status container
+
 status_container = st.empty()
 
-# Configure HF token
 try:
     hf_token = st.secrets["HF_TOKEN"]
     os.environ["HUGGINGFACEHUB_API_TOKEN"] = hf_token
-except:
-    st.error("HF_TOKEN not found in Streamlit secrets")
+    # Use the backend URL from secrets if available, otherwise default to localhost
+    BACKEND_URL = st.secrets.get("BACKEND_URL", "http://localhost:8000")
+except Exception as e:
+    st.error("Configuration error: Make sure HF_TOKEN is set in Streamlit secrets")
     st.stop()
 
 prompt = st.text_input("Enter a prompt")
@@ -43,7 +44,7 @@ if st.button("Generate"):
         with st.spinner():
             # Make the API request with a shorter timeout
             response = requests.post(
-                "http://localhost:8000/generate",
+                f"{BACKEND_URL}/generate",
                 json={
                     "prompt": prompt,
                     "num_images": num_images,
