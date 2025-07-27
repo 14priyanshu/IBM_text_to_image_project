@@ -1,12 +1,17 @@
 import streamlit as st
 import requests
 import time
+import os
 
 st.set_page_config(page_title="AI Image Generator")
 st.title("🖼️ AI Image Generator")
 
 
+BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:8000")
 status_container = st.empty()
+
+
+st.sidebar.text(f"Backend URL: {BACKEND_URL}")
 
 prompt = st.text_input("Enter a prompt")
 options = st.expander("Advanced options")
@@ -18,11 +23,15 @@ with options:
 
 
 try:
-    response = requests.get("http://localhost:8000")
-    # if response.status_code == 200:
-        # status_container.success("✅ Backend is connected")
-except:
+    response = requests.get(BACKEND_URL)
+    if response.status_code == 200:
+        status_container.success("✅ Backend is connected")
+    else:
+        status_container.error(f"❌ Backend returned status code: {response.status_code}")
+except requests.exceptions.ConnectionError:
     status_container.error("❌ Backend is not running. Please start the backend server first.")
+except Exception as e:
+    status_container.error(f"❌ Error connecting to backend: {str(e)}")
 
 if st.button("Generate"):
     if not prompt:
@@ -41,7 +50,7 @@ if st.button("Generate"):
         with st.spinner():
           
             response = requests.post(
-                "http://localhost:8000/generate",
+                f"{BACKEND_URL}/generate",
                 json={
                     "prompt": prompt,
                     "num_images": num_images,
