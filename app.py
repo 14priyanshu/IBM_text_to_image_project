@@ -13,7 +13,7 @@ status_container = st.empty()
 try:
     hf_token = st.secrets["HF_TOKEN"]
     os.environ["HUGGINGFACEHUB_API_TOKEN"] = hf_token
-    # Use the backend URL from secrets if available, otherwise default to localhost
+
     BACKEND_URL = st.secrets.get("BACKEND_URL", "http://localhost:8000")
 except Exception as e:
     st.error("Configuration error: Make sure HF_TOKEN is set in Streamlit secrets")
