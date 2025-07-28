@@ -1,0 +1,12 @@
+streamlit
+fastapi
+uvicorn
+python-dotenv
+huggingface-hub
+requests
+Pillow
+python-multipart
+pydantic
+transformers
+torch
+accelerate

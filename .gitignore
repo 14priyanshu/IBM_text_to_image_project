@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment
+.env
+.venv
+env/
+venv/
+ENV/
+
+# VS Code
+.vscode/
+
+# Streamlit
+.streamlit/
+.streamlit/secrets.toml
+
+# Misc
+*.log
+Backend/.env
