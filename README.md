@@ -1,143 +1,158 @@
 # AI Image Generator
 
-This project is a web application that generates images from text descriptions using Hugging Face's Stable Diffusion model. It consists of a FastAPI backend and a Streamlit frontend.
+A streamlined web application that generates images from text descriptions using Hugging Face's Stable Diffusion XL model. Built entirely with Streamlit for easy deployment and use.
 
-## Features
+## 🌟 Features
 
-- Text-to-image generation using Stable Diffusion XL
-- User-friendly web interface
-- Customizable image generation parameters:
-  - Multiple images per prompt (1-4)
-  - Adjustable guidance scale
-  - Configurable image dimensions
-- Real-time generation progress tracking
-- Base64 image encoding for seamless display
+- **Text-to-Image Generation**: Create stunning images from text descriptions
+- **Stable Diffusion XL**: Powered by state-of-the-art AI model
+- **Customizable Parameters**:
+  - Generate 1-4 images per prompt
+  - Adjustable guidance scale (1.0-15.0)
+  - Multiple image sizes (256x256, 512x512, 768x768)
+- **User-Friendly Interface**: Clean, intuitive Streamlit interface
+- **Real-time Progress**: Visual feedback during image generation
+- **Cloud-Ready**: Designed for easy deployment on Streamlit Cloud
 
-## Tech Stack
-
-- **Backend:**
-
-  - FastAPI (Python web framework)
-  - Hugging Face Hub (AI model integration)
-  - Python-dotenv (environment management)
-
-- **Frontend:**
-  - Streamlit (UI framework)
-  - Requests (HTTP client)
-
-## Setup
+## 🚀 Quick Start
 
 ### Prerequisites
 
 - Python 3.8 or higher
-- Hugging Face account and API token
-- Git
+- Hugging Face account and API token ([Get one here](https://huggingface.co/settings/tokens))
 
-### Installation
+### Local Installation
 
-1. Clone the repository:
-
+1. **Clone the repository**:
 ```bash
-git clone https://github.com/14priyanshu/IBM_text_to_image_project.git
-cd IBM_text_to_image_project
+git clone <your-repo-url>
+cd ai-image-generator
 ```
 
-2. Set up the backend:
-
+2. **Install dependencies**:
 ```bash
-cd Backend
 pip install -r requirements.txt
 ```
 
-3. Create a `.env` file in the Backend directory:
+3. **Set up your Hugging Face token**:
+   - Create a `.env` file in the project root:
+   ```env
+   HF_TOKEN=your_huggingface_token_here
+   ```
 
-```env
-HF_TOKEN=your_huggingface_token_here
-```
-
-4. Set up the frontend:
-
+4. **Run the application**:
 ```bash
-cd ../frontend
-pip install -r requirements.txt
+streamlit run app.py
 ```
 
-## Running the Application
+5. **Open your browser** and go to `http://localhost:8501`
 
-1. Start the backend server:
+## 🌐 Deployment
 
-```bash
-cd Backend
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
-```
+### Streamlit Cloud (Recommended)
 
-2. Start the frontend (in a new terminal):
+1. **Fork this repository** to your GitHub account
 
-```bash
-cd frontend
-streamlit run clients.py
-```
+2. **Go to [Streamlit Cloud](https://streamlit.io/cloud)**
 
-3. Open your browser and go to http://localhost:8501
+3. **Deploy your app**:
+   - Connect your GitHub account
+   - Select this repository
+   - Set the main file path to `app.py`
 
-## Usage
+4. **Add your secrets**:
+   - In the Streamlit Cloud dashboard, go to your app settings
+   - Add a new secret: `HF_TOKEN = "your_huggingface_token_here"`
 
-1. Enter a text prompt describing the image you want to generate
-2. (Optional) Adjust advanced settings:
-   - Number of images to generate
-   - Guidance scale (how closely to follow the prompt)
-   - Image dimensions
-3. Click "Generate" and wait for your images
+5. **Deploy!** Your app will be live at `https://your-app-name.streamlit.app`
 
-## Configuration Options
+### Other Platforms
 
-- **Image Size:** 256x256, 512x512, or 768x768 pixels
-- **Number of Images:** 1-4 images per generation
-- **Guidance Scale:** 1.0-15.0 (higher values = closer adherence to prompt)
+The app can also be deployed on:
+- **Heroku**: Use the included `requirements.txt`
+- **Railway**: Direct deployment from GitHub
+- **Render**: Static site deployment
 
-## Deployment
+## 📖 Usage Guide
 
-The application can be deployed to Vercel:
+### Basic Usage
+1. Enter a descriptive text prompt
+2. Click "Generate Images"
+3. Wait for your AI-generated images!
 
-1. Create a Vercel account
-2. Connect your GitHub repository
-3. Set the environment variable `HF_TOKEN` in Vercel dashboard
-4. Deploy using the Vercel configuration provided
+### Advanced Options
+- **Number of Images**: Generate 1-4 variations
+- **Guidance Scale**: Control how closely the AI follows your prompt
+  - Lower (1-5): More creative, abstract results
+  - Higher (10-15): Stricter adherence to prompt
+- **Image Dimensions**: Choose from 256x256, 512x512, or 768x768 pixels
 
-## Project Structure
+### Pro Tips for Better Results
+- **Be specific**: "A red sports car in a futuristic city at sunset"
+- **Include style keywords**: "photorealistic", "digital art", "oil painting"
+- **Mention composition**: "close-up", "wide angle", "bird's eye view"
+- **Describe lighting**: "soft lighting", "dramatic shadows", "golden hour"
 
-```
-IBM_project_text_to_image/
-├── Backend/
-│   ├── main.py           # FastAPI application
-│   ├── service.py        # Image generation logic
-│   ├── schemas.py        # Data models
-│   └── requirements.txt  # Backend dependencies
-├── frontend/
-│   ├── clients.py        # Streamlit interface
-│   └── requirements.txt  # Frontend dependencies
-└── vercel.json          # Vercel deployment configuration
-```
+## 🛠️ Technical Details
 
-## Security
+### Architecture
+- **Frontend**: Streamlit (Python web framework)
+- **AI Model**: Stable Diffusion XL via Hugging Face Inference API
+- **Image Processing**: PIL (Python Imaging Library)
+- **Deployment**: Cloud-native, serverless architecture
 
-- The `.env` file is excluded from version control
-- Hugging Face token is stored securely as an environment variable
-- CORS is configured for secure communication between frontend and backend
+### Key Components
+- `app.py`: Main Streamlit application
+- `requirements.txt`: Python dependencies
+- `.env`: Environment variables (local development)
 
-## Contributing
+### Performance Considerations
+- Images are generated server-side and returned as base64
+- Larger images and more images take longer to generate
+- Guidance scale affects generation time slightly
+
+## 🔧 Configuration
+
+### Environment Variables
+- `HF_TOKEN`: Your Hugging Face API token (required)
+
+### Model Settings
+- **Model**: `stabilityai/stable-diffusion-xl-base-1.0`
+- **Default Size**: 512x512 pixels
+- **Default Guidance**: 7.5
+- **Negative Prompt**: Empty (can be customized in code)
+
+## 🤝 Contributing
 
 1. Fork the repository
-2. Create a new branch
+2. Create a feature branch: `git checkout -b feature-name`
 3. Make your changes
-4. Submit a pull request
+4. Test locally: `streamlit run app.py`
+5. Commit changes: `git commit -am 'Add feature'`
+6. Push to branch: `git push origin feature-name`
+7. Submit a Pull Request
 
-## License
+## 📝 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Acknowledgments
+## 🙏 Acknowledgments
 
-- Hugging Face for providing the Stable Diffusion model
-- Streamlit for the amazing UI framework
-- FastAPI for the efficient backend framework
+- **Hugging Face** for providing the Stable Diffusion XL model and inference API
+- **Streamlit** for the amazing web framework
+- **Stability AI** for the Stable Diffusion model
+
+## 📞 Support
+
+If you encounter any issues:
+
+1. **Check your HF_TOKEN**: Make sure it's valid and properly set
+2. **Review the logs**: Streamlit shows detailed error messages
+3. **Try different prompts**: Some prompts may not work well
+4. **Reduce image size**: If generation is slow or failing
+
+For additional help, please open an issue on GitHub.
+
+---
+
+**Happy generating! 🎨✨**
